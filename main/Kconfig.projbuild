@@ -6,6 +6,9 @@ menuconfig TEST_TONE_MODE
 menuconfig TITLE_PARSER
     bool "Title parser !!TEST!!"
     
+menuconfig WM8978_CODEC_SUPPORT
+    bool "WM8978 codec support"
+
 menu "Wifi Configuration"
 
 config WIFI_SSID

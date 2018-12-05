@@ -30,6 +30,10 @@
 #include "driver/gpio.h"
 #include "hd44780.h"
 
+#ifdef CONFIG_WM8978_CODEC_SUPPORT
+#include "hal_i2c.h"
+#include "wm8978.h"
+#endif
 
 #define WIFI_LIST_NUM   10
 
@@ -145,6 +149,17 @@ void app_main()
     init_hardware();
     LiquidCrystal_init();
     LCD_Print_addr("Wait", 0);
+
+#ifdef CONFIG_WM8978_CODEC_SUPPORT
+    /* MCLK out */
+    PIN_FUNC_SELECT(PERIPHS_IO_MUX_GPIO0_U, FUNC_GPIO0_CLK_OUT1);
+    WRITE_PERI_REG(PIN_CTRL, READ_PERI_REG(PIN_CTRL) & 0xFFFFFFF0);
+
+    /* init codec */
+    hal_i2c_init(0,14,15);
+    WM8978_Init();
+#endif
+
 
 #ifdef CONFIG_TEST_TONE_MODE
     if(gpio_get_level(2) == 0) {

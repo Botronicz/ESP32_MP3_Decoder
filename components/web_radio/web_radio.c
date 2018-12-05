@@ -267,7 +267,7 @@ void web_radio_lcd_handler_task(void *pvParams)
 void web_radio_init(web_radio_t *config)
 {
     controls_init(web_radio_gpio_handler_task, 2048, config);
-    lcd_task_init(web_radio_lcd_handler_task, 2048, config);
+    //lcd_task_init(web_radio_lcd_handler_task, 2048, config);
     audio_player_init(config->player_config);
 }
 
